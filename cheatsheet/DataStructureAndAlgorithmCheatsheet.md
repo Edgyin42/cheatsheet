@@ -67,6 +67,7 @@ class _Graph{
 
 
 ### Detecting cycles: 
+1. In directed graph: 
 ```
 #include <vector>
 using namespace std;
@@ -104,7 +105,41 @@ bool hasCycleDirected(const vector<vector<int>>& graph, int V) {
 
 ```
 
+2. In undirected graph:
+- Using DFS
+```
 
+bool dfsUndirected(int v, int parent, const vector<vector<int>>& graph, vector<bool>& visited) {
+    visited[v] = true;
+
+    for (int neighbor : graph[v]) {
+        // If neighbor is not visited, recur on it.
+        if (!visited[neighbor]) {
+            if (dfsUndirected(neighbor, v, graph, visited))
+                return true;
+        }
+        // If neighbor is visited and is not the parent, cycle exists.
+        else if (neighbor != parent) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool hasCycleUndirected(const vector<vector<int>>& graph, int V) {
+    vector<bool> visited(V, false);
+
+    for (int i = 0; i < V; i++) {
+        if (!visited[i]) {
+            if (dfsUndirected(i, -1, graph, visited))
+                return true;
+        }
+    }
+    return false;
+}
+
+```
+- Using [DSU](#union---find-also-called-disjoint-set-union-dsu)
 
 ##  2. Breadth-first search: 
 
@@ -141,9 +176,21 @@ void BFS(int s, vector<vector<int> >& adj){
 
 
 
-# Union - Find: 
-
-
+# Union - Find (also called Disjoint Set Union, DSU): 
+- Used to manage a partition of a set into disjoint (non-overlapping) subsets.
+- Supports two main operations:
+  - Union — Merge two subsets into one.
+  - Find: Find the root node. 
+- Usually used in: 
+  - Connected components detection in undirected graph: [Redundant Connection
+](https://leetcode.com/problems/redundant-connection/description/)
+  - Dynamic connectivity problems
+  - Graph algorithms, like Kruskal's algorithm (Minimum Spanning Tree).
+## 2 heuristics: 
+- Path Compression: flatten the structure of the tree to make find operation more efficient
+-  Rank heuristic: If two elements are at different sets, merge the smaller set to the larger set. (implemented by rank). 
+### Union: (implemented below)
+### Find: (implemented below)
 
 ```
 class unionFind{
@@ -181,3 +228,5 @@ class unionFind{
 }; 
 
 ```
+## References: 
+[Medium](https://yuminlee2.medium.com/union-find-algorithm-ffa9cd7d2dba#5b04)
