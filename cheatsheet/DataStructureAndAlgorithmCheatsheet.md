@@ -1,3 +1,44 @@
+# Basic algorithm: 
+
+## Sliding window: 
+Strategy: 
+1. Brute force (Time complexity: O(n^2)). Determine the condition of the answer. 
+Example: [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/description)
+The condition is for every substring, count the number of characters from the beginning of the substring to the duplicated character. 
+Example: [Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement/description/)
+The condition: for every substring, main a hashmap that map the character to the number of it occuring in the substring, Take the max of them "maxCount". Then: 
+        Length - maxCount <= k
+2. Optimize the brute force using sliding window: Determine the invalid condition to move the left pointer.
+   
+Template: 
+* Shrinkable: 
+    ```
+    int i = 0, j = 0, ans = 0;
+    for (; j < N; ++j) {
+        // CODE: use A[j] to update state which might make the window invalid
+        for (; invalid(); ++i) { // when invalid, keep shrinking the left edge until it's valid again
+            // CODE: update state using A[i]
+        }
+        ans = max(ans, j - i + 1); // the window [i, j] is the maximum window we've found thus far
+    }
+    return ans;
+```
+
+* Non - shrinkable: 
+    ```
+    int i = 0, j = 0;
+    for (; j < N; ++j) {
+        // CODE: use A[j] to update state which might make the window invalid
+        if (invalid()) { // Increment the left edge ONLY when the window is invalid. In this way, the window GROWs when it's valid, and SHIFTs when it's invalid
+            // CODE: update state using A[i]
+            ++i;
+        }
+        // after `++j` in the for loop, this window `[i, j)` of length `j - i` MIGHT be valid.
+    }
+    return j - i; // There must be a maximum window of size `j - i`.
+```
+
+
 # Graph: 
 - Def: a type of data structure connecting vertices using egdes
 - Directed or undirected. 
@@ -56,6 +97,19 @@ class _Graph{
 
 
 ## 1. Depth first search: 
+
+### 2D graph type problem: 
+- Problems: 
+  - [Number of Islands](https://leetcode.com/problems/number-of-islands/description/)
+  - Max area of islands
+  - Clone graph
+
+- Initializing an n×m (rows × cols) vector<vector<bool>> with false values.
+
+```
+ std::vector<std::vector<bool>> visited(rows, std::vector<bool>(cols, false));
+```
+
 
 ### Connected components: 
 ```
@@ -142,7 +196,8 @@ bool hasCycleUndirected(const vector<vector<int>>& graph, int V) {
 - Using [DSU](#union---find-also-called-disjoint-set-union-dsu)
 
 ##  2. Breadth-first search: 
-
+- Implemented with a queue -> iterative, not recursive.
+- Can be implemented using iterative approach, just more complex.
 BFS from source s, with a adjacency list adj. 
 ```
 void BFS(int s, vector<vector<int> >& adj){
@@ -162,16 +217,136 @@ void BFS(int s, vector<vector<int> >& adj){
 
 }
 ```
-# 2. Initializing an n×m (rows × cols) vector<vector<bool>> with false values.
+
+### 2D graph type problem: 
+- Walls and gates 
+
+### Shortest path in undirected graph: [Word ladder](https://leetcode.com/problems/word-ladder/description/)
 
 ```
- std::vector<std::vector<bool>> visited(rows, std::vector<bool>(cols, false));
- ```
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <unordered_set>
+
+using namespace std;
+
+vector<int> bfs_shortest_path(const vector<vector<int>>& graph, int start, int target) {
+    queue<pair<int, vector<int>>> q; // (current node, path to this node)
+    unordered_set<int> visited;
+    
+    q.push({start, {start}});
+    visited.insert(start);
+    
+    while (!q.empty()) {
+        int node = q.front().first;
+        vector<int> path = q.front().second;
+        q.pop();
+        
+        if (node == target) {
+            return path; // Found the shortest path
+        }
+        
+        for (int neighbor : graph[node]) {
+            if (visited.find(neighbor) == visited.end()) {
+                visited.insert(neighbor);
+                vector<int> new_path = path;
+                new_path.push_back(neighbor);
+                q.push({neighbor, new_path});
+            }
+        }
+    }
+    
+    return {}; // No path found
+}
+
+int main() {
+    // Adjacency list for an undirected graph
+    vector<vector<int>> graph = {
+        {1, 2},       // Node 0 is connected to 1 and 2
+        {0, 3},       // Node 1 is connected to 0 and 3
+        {0, 3},       // Node 2 is connected to 0 and 3
+        {1, 2, 4},    // Node 3 is connected to 1, 2, and 4
+        {3}           // Node 4 is connected to 3
+    };
+    
+    vector<int> path = bfs_shortest_path(graph, 0, 4);
+    
+    if (!path.empty()) {
+        cout << "Shortest path: ";
+        for (int node : path) {
+            cout << node << " ";
+        }
+        cout << endl;
+    } else {
+        cout << "No path found." << endl;
+    }
+
+    return 0;
+}
+
+```
+
+
+## Dijkstra's Algorithm: 
+* Find shortest path in weighted graph.
+* Dijkstra's algorithm is a greedy algorithm used to find the shortest path from a single source node to all other nodes in a weighted graph with non-negative edge weights
+
+### Key Steps of Dijkstra's Algorithm
+1. Initialization:
+
+    Set the distance to the source node as 0.
+
+    Set the distance to all other nodes as ∞ (infinity).
+
+    Mark all nodes as unvisited.
+
+2. Main Loop:
+
+    Select the unvisited node with the smallest tentative distance (call it the current node).
+
+    For each neighbor of the current node, calculate the tentative distance through the current node:
+
+        tentative distance = distance[current node] + weight(current node, neighbor)
+    If the tentative distance is smaller than the previously recorded distance, update the distance.
+
+    Mark the current node as visited.
+
+3. Termination:
+
+    The algorithm terminates when all nodes have been visited or when the smallest tentative distance among the unvisited nodes is ∞ (meaning the remaining nodes are unreachable).
+
+### Why it works: 
+
+Proof of Correctness
+    To formally prove that Dijkstra's algorithm works, we can use mathematical induction:
+
+    Base Case:
+      * At the start, the source node S has a distance of 0, which is correct.
+
+    Inductive Step:
+       * Assume that the distances to the first k visited nodes are correct.
+
+       * When the algorithm selects the (k+1)-th node (the unvisited node with the smallest tentative distance), its distance must be correct because any path to this node must pass through one of the already visited nodes.
+
+       * Since the algorithm always chooses the smallest tentative distance, no shorter path can exist.
+
+    Conclusion:
+      * By induction, the distances to all nodes are correct when the algorithm terminates.
+
+
+
+### Optimize using priority queue: 
+* At each step, Dijkstra's algorithm needs to find the unvisited node with the smallest tentative distance. 
+* PQ allows us to look through this without having to traverse through every nodes. 
 
 
 
 
- # 3. Topological sorting: 
+
+
+
+## 3. Topological sorting: 
  If the graph doesn't have any cycles, then it 
 
 
@@ -230,3 +405,8 @@ class unionFind{
 ```
 ## References: 
 [Medium](https://yuminlee2.medium.com/union-find-algorithm-ffa9cd7d2dba#5b04)
+
+
+
+
+# Bit manipulation 
