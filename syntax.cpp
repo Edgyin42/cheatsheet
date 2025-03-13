@@ -154,6 +154,7 @@ q.pop();                                       // does not return element !!!!!
 q.empty();
 
 priority_queue<int> pq;                        // max heap by default
+priority_queue<int,vector<int>,greater<int> > q; // min heap using vector
 pq.push(val);
 pq.top();                                      // access first element
 pq.pop();                                      // pop out first value, does not return element !!!!!
