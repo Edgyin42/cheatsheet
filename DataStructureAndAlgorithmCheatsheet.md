@@ -342,10 +342,51 @@ Proof of Correctness
 
 Code: 
 ```
+void dijkstra(int start) {
+        vector<int> dist(nVertices + 1, numeric_limits<int>::max()); // Distance array
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
 
+        // Start with the source node
+        dist[start] = 0;
+        pq.push({0, start}); // (distance, node)
 
+        while (!pq.empty()) {
+            int currentDist = pq.top().first;
+            int currentNode = pq.top().second;
+            pq.pop();
+
+            // Skip processing if we've already found a better path
+            if (currentDist > dist[currentNode]) continue;
+
+            // Explore neighbors
+            for (auto neighbor : edges[currentNode]) {
+                int nextNode = neighbor.first;
+                int weight = neighbor.second;
+
+                // Relaxation step
+                if (dist[currentNode] + weight < dist[nextNode]) {
+                    dist[nextNode] = dist[currentNode] + weight;
+                    pq.push({dist[nextNode], nextNode});
+                }
+            }
+        }
+
+        // Print shortest distances
+        cout << "Shortest distances from node " << start << ":\n";
+        for (int i = 1; i < nVertices + 1; i++) {
+            cout << "Node " << i << " -> Distance: " << dist[i] << endl;
+        }
+    }
 ```
 
+Time complexity: 
+
+| Approach            | Find Min Node  | Edge Relaxation        | Total Complexity       |
+|---------------------|---------------|------------------------|------------------------|
+| Without PQ         | \(O(V)\)       | \(O(E)\)               | \(O(V^2)\)            |
+| With PQ (min-heap) | \(O(\log V)\)  | \(O(\log V)\) per edge | \(O((V + E) \log V)\) |
+
+Generally it's the same with DFS< BFS O(V+E) but we need to multiply it the time to do the update and find the Min node.
 
 
 

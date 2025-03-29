@@ -61,7 +61,7 @@ class weightedGraph{
 
         // Print shortest distances
         cout << "Shortest distances from node " << start << ":\n";
-        for (int i = 0; i < nVertices; i++) {
+        for (int i = 1; i < nVertices + 1; i++) {
             cout << "Node " << i << " -> Distance: " << dist[i] << endl;
         }
     }
@@ -72,17 +72,19 @@ class weightedGraph{
 
 int main(){
     weightedGraph *a = new weightedGraph(7, false);
-    // a->insertEdges(1, 2, 6); 
-    // a->insertEdges(1, 5, 5); 
-    // a->insertEdges(2, 5, 3); 
-    // a->insertEdges(2, 3, 4); 
-    // a->insertEdges(5, 3, 7); 
-    // a->insertEdges(2, 6, 10); 
-    // a->insertEdges(5, 4, 2); 
-    // a->insertEdges(4, 7, 10); 
-    // a->insertEdges(6, 7, 2); 
-    // a->insertEdges(6, 4, 7); 
-    // a->printGraph();
+    a->insertEdges(1, 2, 6); 
+    a->insertEdges(1, 5, 5); 
+    a->insertEdges(2, 5, 3); 
+    a->insertEdges(2, 3, 4); 
+    a->insertEdges(5, 3, 7); 
+    a->insertEdges(2, 6, 10); 
+    a->insertEdges(5, 4, 2); 
+    a->insertEdges(4, 7, 10); 
+    a->insertEdges(4, 3, 3); 
+    a->insertEdges(6, 7, 2); 
+    a->insertEdges(6, 3, 1); 
+    a->insertEdges(6, 4, 7); 
+    a->printGraph();
     a->dijkstra(1);
     return 0;
 }
