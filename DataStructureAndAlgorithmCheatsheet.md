@@ -1,5 +1,8 @@
 # Basic algorithm: 
+## Recursion: 
+![Head vs Tail recursion](<HeadvsTailRecursion.png>)
 
+Generally, tail recursions are always better. Even though they both have same time complexity and Auxiliary space, tail recursions takes an edge in terms of memory in function stack. Head recursions will wait in function stack memory until the post recursion code statements are executed which causes a latency in overall results, whereas tail recursions will be terminated in function stack over execution.
 ## Sliding window: 
 Strategy: 
 1. Brute force (Time complexity: O(n^2)). Determine the condition of the answer. 
@@ -38,6 +41,35 @@ Template:
     return j - i; // There must be a maximum window of size `j - i`.
 ```
 
+## Binary search: 
+Template: 
+1. Looking for 'target' in a sorted array: 
+    ```
+    l, r = 0, n - 1;
+    while (l <= r): 
+        m = (l + (r - l)) // 2
+        if nums[m] == target: 
+            return m
+        if nums[m] < target: 
+            l = m + 1
+        else: 
+            r = m - 1
+    ```
+2. Looking for the index of the first element that satisfies a condition: 
+   ``` F F T T T
+   l, r = 0, n - 1
+   while l < r: 
+        m = (l + (r - l)) // 2
+        if (condition(m)): 
+            r = m
+        else: 
+            l = m + 1
+    return l
+   ```
+
+## Tree: 
+![Different types of tree traversal](TreeTraversal.png)
+![Different types of tree traversal](TreeTraversal2.png)
 
 # Graph: 
 - Def: a type of data structure connecting vertices using egdes
