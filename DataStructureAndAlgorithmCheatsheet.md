@@ -518,8 +518,6 @@ class unionFind{
 
 The total time complexity of insert and remove all the elements is **O(nlogn)**
 
-
-
 ### Implementation: 
 * Using binary tree: 
 * Using array to represent binary tree: 
@@ -528,8 +526,22 @@ The total time complexity of insert and remove all the elements is **O(nlogn)**
     * If we're at the children node then its parent node would be $\lfloor i+1 \rfloor$
 
 ### Heap sort: 
+1. Build a Max Heap from the input array.
+2. Extract the maximum element (root) and place it at the end of the array.
+3. Reduce the heap size and heapify the root to maintain the heap property.
+4. Repeat steps 2-3 until the heap size is 1.
 
+```
+def sort(a):
+    for i = 0...n-1:
+        siftUp(a[i])
+    for i = n-1...0: 
+        swap(a[i], a[0])
+        siftDown(a[0])
+```
 
+Time complexity: O(nlogn)
+Space: O(n) = Space of the array
 ## References: 
 [Medium](https://yuminlee2.medium.com/union-find-algorithm-ffa9cd7d2dba#5b04)
 
