@@ -67,7 +67,7 @@ Template:
     return l
    ```
 
-## Tree: 
+# Tree: 
 ![Different types of tree traversal](res/TreeTraversal.png)
 ![Different types of tree traversal](res/TreeTraversal2.png)
 
@@ -145,7 +145,6 @@ class _Graph{
 
 ### Connected components: 
 ```
-
 
 
 ```
@@ -481,6 +480,56 @@ class unionFind{
 }; 
 
 ```
+# Array: 
+
+| **Operation**         | **Static Array (Fixed Size)** | **Dynamic Array (Resizable)** | **Note**
+|-----------------------|----------------------------|-----------------------------|-----------------------------|
+| **Access (Indexing)** | **O(1)** | **O(1)** |
+| **Search (Linear)** | **O(n)** | **O(n)** |
+| **Search (Binary, Sorted)** | **O(log n)** | **O(log n)** |
+| **Insert (End)** | **N/A** (Fixed size) | **O(1)** (Amortized) |
+| **Insert (Beginning/Arbitrary)** | **N/A** | **O(n)** (Shifting required) | Need to shift the entire array by 1 to the left
+| **Delete (Any)** | **O(1)** | **O(1)** | Swap the deleted element with the element at the end at decrease the size of the array.
+| **Delete (End)** | **N/A** | **O(1)** | 
+| **Delete (Beginning/Arbitrary)** | **N/A** | **O(n)** (Shifting required) | 
+| **Update** | **O(1)** | **O(1)** |
+| **Sorting** | **O(n log n)** | **O(n log n)** |
+| **Reverse** | **O(n)** | **O(n)** |
+| **Copy** | **O(n)** | **O(n)** |
+| **Merge** | **O(n + m)** | **O(n + m)** |
+| **Max/Min** | **O(n)** | **O(n)** |
+| **Unique Elements (HashSet)** | **O(n)** | **O(n)** |
+| **Prefix Sum** | **O(n)** | **O(n)** |
+| **Rotate (Efficient)** | **O(n)** | **O(n)** |
+
+
+# Heap (priority queue): 
+### 2 types: 
+   - max heap (Children nodes are smaller than the parent node)
+   - min heap (Children nodes are larger than the parent node)
+
+### Contains 2 main operations:
+* Insert: **O(logn)**
+  * Put the element to the end of the heap
+  * Heapify it up (sift up)
+* Remove_min(remove_max): **O(logn)**
+  * Swap the top element of the heap with the last element and remove it 
+  * Heapify down the top element (sift down)
+
+The total time complexity of insert and remove all the elements is **O(nlogn)**
+
+
+
+### Implementation: 
+* Using binary tree: 
+* Using array to represent binary tree: 
+    * The parent node is at index i
+    * 2 of the children nodes are at index 2i + 1 and 2i + 2
+    * If we're at the children node then its parent node would be $\lfloor i+1 \rfloor$
+
+### Heap sort: 
+
+
 ## References: 
 [Medium](https://yuminlee2.medium.com/union-find-algorithm-ffa9cd7d2dba#5b04)
 
