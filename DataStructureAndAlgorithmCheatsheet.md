@@ -541,6 +541,7 @@ def sort(a):
 ```
 
 Time complexity: O(nlogn)
+
 Space: O(n) = Space of the array
 ## References: 
 [Medium](https://yuminlee2.medium.com/union-find-algorithm-ffa9cd7d2dba#5b04)
