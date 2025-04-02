@@ -1,6 +1,6 @@
 # Basic algorithm: 
 ## Recursion: 
-![Head vs Tail recursion](<HeadvsTailRecursion.png>)
+![Head vs Tail recursion](<res/HeadvsTailRecursion.png>)
 
 Generally, tail recursions are always better. Even though they both have same time complexity and Auxiliary space, tail recursions takes an edge in terms of memory in function stack. Head recursions will wait in function stack memory until the post recursion code statements are executed which causes a latency in overall results, whereas tail recursions will be terminated in function stack over execution.
 ## Sliding window: 
@@ -68,8 +68,8 @@ Template:
    ```
 
 ## Tree: 
-![Different types of tree traversal](TreeTraversal.png)
-![Different types of tree traversal](TreeTraversal2.png)
+![Different types of tree traversal](res/TreeTraversal.png)
+![Different types of tree traversal](res/TreeTraversal2.png)
 
 # Graph: 
 - Def: a type of data structure connecting vertices using egdes
@@ -78,9 +78,9 @@ Template:
 - n vertices, m edges. 
 ## Graph storage: 
 ****
-![Local Image](./Graph.jpeg)
+![Local Image](./res/Graph.jpeg)
 
-### Using adjacency matrix: ![alt text](<./AdjacencyMatrix.jpeg>)
+### Using adjacency matrix: ![alt text](<./res/AdjacencyMatrix.jpeg>)
 ```{c}
 // Using adjacency matrix: 
 class Graph{
@@ -103,7 +103,7 @@ class Graph{
 }; 
 ```
 ### Using adjacency list: 
-![alt text](<./AdjacencyList.jpeg>)
+![alt text](<./res/AdjacencyList.jpeg>)
 ```{c}
 class _Graph{
     int nVertices; 
