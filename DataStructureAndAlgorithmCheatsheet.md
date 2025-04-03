@@ -1,4 +1,90 @@
 # Basic algorithm: 
+## Divide and conquer: 
+## Master Theorem
+### Consider a problem:
+```
+    function p(input x size n): 
+        if n < constant k: 
+            solve x without recursion 
+        else: 
+            create a subprolems, each with size n/b
+            call p recursively on each subprolem
+            combine the results from the subproblems
+```
+Time complexity: $T(n) = aT(n/b) + f(n)$
+
+![Subproblem](DivideAndConquer.png)
+
+H = height of the tree
+-> Number of subproblem = $a^{log_{b}n} = n^{log_{b}a}$
+
+
+The **Master Theorem** is used to analyze the time complexity of divide-and-conquer recurrences of the form:
+
+```
+T(n) = aT(n/b) + f(n)
+```
+
+Where:
+- $a ≥ 1$ is the number of subproblems.
+- $b > 1$ is the factor by which the problem size is reduced.
+- $f(n)$ represents the cost outside recursive calls (e.g., dividing the problem or merging results).
+
+### Cases of the Master Theorem
+
+1. **Case 1: Recursive Work Dominates**
+   - If $f(n) = O(n^c)$, where $c < log_b a$, then:
+     
+     ```
+     T(n) = O(n^(log_b a))
+     ```
+     
+2. **Case 2: Balanced Work**
+   - If $f(n) = O(n^(log_b a))$, then:
+     
+     ```
+     T(n) = O(n^(log_b a) log n)
+     ```
+     
+3. **Case 3: Non-Recursive Work Dominates**
+   - If $f(n) = Ω(n^c)$, where $c > log_b a$, and if $af(n/b) ≤ kf(n)$ for some $k < 1$, then:
+     
+     ```
+     T(n) = O(f(n))
+     ```
+
+### Example: 
+* In merge sort: 
+  * T(n) = 2T(n/2) + O(n)
+  * 2 = $log_2 (2)$, so T(n) = $O(n^{log_2 (2)}logn) = O(nlogn)$ 
+
+
+## Sorting algorithm: 
+### Insertion sort: 
+Take the element and move it to the left until it finds the correct position.
+```
+for i = 0...n-1:
+    j = i
+    while j > 0 and arr[i] > arr[i-1]:
+        swap(arr[i], arr[i-1])
+        j--
+```
+Time complexity: O(n^2)
+
+### Merge sort: 
+```
+function sort(a): 
+    left = sort(a[0:n/2])
+    right = sort(a[n/2+1:])
+    return merge(left, right)
+```
+* Merge operates in O(n)
+* Refer to master theorem, time complexity would be O(nlogn)
+### Quick sort: 
+
+### Quick select: 
+
+
 ## Recursion: 
 ![Head vs Tail recursion](<res/HeadvsTailRecursion.png>)
 
@@ -541,7 +627,6 @@ def sort(a):
 ```
 
 Time complexity: O(nlogn)
-
 Space: O(n) = Space of the array
 ## References: 
 [Medium](https://yuminlee2.medium.com/union-find-algorithm-ffa9cd7d2dba#5b04)
