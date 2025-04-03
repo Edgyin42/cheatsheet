@@ -1,6 +1,5 @@
 # Basic algorithm: 
-## Divide and conquer: 
-## Master Theorem
+## Divide and conquer - Master Theorem
 ### Consider a problem:
 ```
     function p(input x size n): 
@@ -81,9 +80,41 @@ function sort(a):
 * Merge operates in O(n)
 * Refer to master theorem, time complexity would be O(nlogn)
 ### Quick sort: 
-
+```
+func sort(l, r): 
+    if r - l <= 1: 
+        return
+    j = random(l, r)
+    m = l
+    for i = l...r: 
+        if arr[i] < arr[j]: 
+            swap(arr[i], arr[m])
+            m++
+    sort(l, m)
+    sort(m+1, r)
+```
+Time complextity: 
+* Worst case: O(n^2) 
+* Average case: O(nlogn)
+Proof: 
 ### Quick select: 
 
+```
+func kelement(l, r, k): 
+    if r - l <= 1: 
+        return
+    j = random(l, r)
+    m = l
+    for i = l...r: 
+        if arr[i] < arr[j]: 
+            swap(arr[i], arr[m])
+            m++
+    if k < m: 
+        kelement(l, m, k)
+    else: 
+        kelement(m+1, r, k)
+```
+Time complexity: O(n)
 
 ## Recursion: 
 ![Head vs Tail recursion](<res/HeadvsTailRecursion.png>)
