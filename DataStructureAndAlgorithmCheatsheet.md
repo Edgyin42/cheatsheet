@@ -12,7 +12,7 @@
 ```
 Time complexity: $T(n) = aT(n/b) + f(n)$
 
-![Subproblem](DivideAndConquer.png)
+![Subproblem](res/DivideAndConquer.png)
 
 H = height of the tree
 -> Number of subproblem = $a^{log_{b}n} = n^{log_{b}a}$
